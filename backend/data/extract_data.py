@@ -22,7 +22,7 @@ df = pd.DataFrame(data)
 restaurants = df[df['categories'].str.contains('Restaurant', na=False)]
 
 # Extract columns
-restaurants_df = restaurants[['business_id', 'name', 'city', 'state', 'latitude', 'longitude', 'stars', 'review_count', 'attributes', 'categories']]
+restaurants_df = restaurants[['business_id', 'name', 'city', 'latitude', 'longitude', 'stars', 'review_count', 'attributes', 'categories']]
 
 # Extract price_range
 def get_price(attr):
@@ -33,8 +33,8 @@ def get_price(attr):
 restaurants_df['price_range'] = restaurants_df['attributes'].apply(get_price)
 
 # Create restaurants.csv
-restaurants_final = restaurants_df[['business_id', 'name', 'city', 'state', 'latitude', 'longitude', 'price_range', 'stars', 'review_count', 'categories']]
-restaurants_final.columns = ['restaurant_id', 'name', 'city', 'state', 'latitude', 'longitude', 'price_range', 'rating', 'review_count', 'categories']
+restaurants_final = restaurants_df[['business_id', 'name', 'city', 'latitude', 'longitude', 'price_range', 'stars', 'review_count', 'categories']]
+restaurants_final.columns = ['restaurant_id', 'name', 'city', 'latitude', 'longitude', 'price_range', 'rating', 'review_count', 'categories']
 
 # price_range is missing, convert to 0
 restaurants_final['price_range'] = pd.to_numeric(restaurants_final['price_range'], errors='coerce').fillna(0).astype(int)
